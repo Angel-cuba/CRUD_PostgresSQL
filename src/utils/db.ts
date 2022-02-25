@@ -3,7 +3,7 @@ import { Pool } from 'pg';
 let connection: any;
 
 if (!connection) {
-	const pool = new Pool({
+	connection = new Pool({
 		user: 'postgres',
 		password: 'VeraMaria',
 		host: 'localhost',

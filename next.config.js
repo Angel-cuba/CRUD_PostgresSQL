@@ -1,6 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  reactStrictMode: true,
-}
+	reactStrictMode: true,
+	images: {
+		domains: ['react.semantic-ui.com'],
+	},
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;

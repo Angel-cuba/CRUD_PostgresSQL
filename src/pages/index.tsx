@@ -1,6 +1,8 @@
+/* eslint-disable react/jsx-key */
 import { useRouter } from 'next/router';
 import React from 'react';
 import { Button, Grid } from 'semantic-ui-react';
+import Layout from '../components/Layout';
 import TaskList from '../components/tasks/TaskList';
 import { Task } from '../interfaces/task';
 interface Props {
@@ -10,7 +12,7 @@ interface Props {
 export default function IndexPage({ tasks }: Props) {
 	const router = useRouter();
 	return (
-		<>
+		<Layout>
 			{tasks.length === 0 ? (
 				<Grid>
 					<Grid.Row columns={3} centered verticalAlign="middle" style={{ height: '70%' }}>
@@ -23,7 +25,7 @@ export default function IndexPage({ tasks }: Props) {
 			) : (
 				<TaskList tasks={tasks} />
 			)}
-		</>
+		</Layout>
 	);
 }
 export const getServerSideProps = async () => {

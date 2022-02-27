@@ -4,8 +4,9 @@ import { Button, Card, Form, Icon } from 'semantic-ui-react';
 import { newTask, Task } from '../../interfaces/task';
 import tasks from '../api/tasks';
 import { useRouter } from 'next/router';
+import Layout from '../../components/Layout';
 
-export default function newPage() {
+export default function NewPage() {
 	const [task, setTask] = useState({
 		title: '',
 		description: '',
@@ -36,7 +37,7 @@ export default function newPage() {
 	};
 
 	return (
-		<div>
+		<Layout>
 			<Card>
 				<Card.Content>
 					<Form style={{ textAlign: 'center' }} onSubmit={handleSubmit}>
@@ -60,6 +61,6 @@ export default function newPage() {
 					</Form>
 				</Card.Content>
 			</Card>
-		</div>
+		</Layout>
 	);
 }

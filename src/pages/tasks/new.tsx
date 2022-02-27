@@ -3,12 +3,14 @@ import { ChangeEvent, FormEvent, useState } from 'react';
 import { Button, Card, Form, Icon } from 'semantic-ui-react';
 import { newTask, Task } from '../../interfaces/task';
 import tasks from '../api/tasks';
+import { useRouter } from 'next/router';
 
 export default function newPage() {
 	const [task, setTask] = useState({
 		title: '',
 		description: '',
 	});
+	const router = useRouter();
 	const handleChange = ({
 		target: { name, value },
 	}: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => setTask({ ...task, [name]: value });
@@ -27,6 +29,7 @@ export default function newPage() {
 		e.preventDefault();
 		try {
 			createTask(task);
+			router.push('/');
 		} catch (error) {
 			console.log(error);
 		}

@@ -1,23 +1,42 @@
 /* eslint-disable react/jsx-key */
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, FormEvent, useState } from 'react';
 import { Button, Card, Form, Icon } from 'semantic-ui-react';
-import { newTask } from '../../interfaces/task';
+import { newTask, Task } from '../../interfaces/task';
+import tasks from '../api/tasks';
 
 export default function newPage() {
 	const [task, setTask] = useState({
 		title: '',
 		description: '',
 	});
-	const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+	const handleChange = ({
+		target: { name, value },
+	}: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => setTask({ ...task, [name]: value });
+
+	const createTask = async (task: Task) => {
+		await fetch('http://localhost:3000/api/tasks', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify(task),
+		});
+	};
+
+	const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		console.log(e.target.name, e.target.value);
+		try {
+			createTask(task);
+		} catch (error) {
+			console.log(error);
+		}
 	};
 
 	return (
 		<div>
 			<Card>
 				<Card.Content>
-					<Form style={{ textAlign: 'center' }}>
+					<Form style={{ textAlign: 'center' }} onSubmit={handleSubmit}>
 						<Form.Field>
 							<label htmlFor="title">Title</label>
 							<input type="text" name="title" placeholder="Write a title" onChange={handleChange} />
